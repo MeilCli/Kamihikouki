@@ -102,7 +102,6 @@ namespace Kamihikouki.NETStandard
                 Type typeArgument = getTypeArgument(navigationRequest);
 
                 MethodInfo method = navigationProviderMethod.method.MakeGenericMethod(typeArgument);
-                // ToDo: cache
                 Func<object, Task> func = CreateDelegate(method, navigationAttribute, NavigationProvider);
                 var navigationAction = new NavigationAction(func);
                 navigationRequest.NavigationAction = navigationAction;
@@ -125,7 +124,6 @@ namespace Kamihikouki.NETStandard
             {
                 foreach (var attribute in navigationMethod.attributes)
                 {
-                    // ToDo: cache
                     Func<object, Task> func = CreateDelegate(navigationMethod.method, attribute, view);
                     var navigationAction = new NavigationAction(func);
                     object viewModel = getViewModel(attribute, viewModels);
