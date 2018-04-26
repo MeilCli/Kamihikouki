@@ -36,8 +36,8 @@ namespace Kamihikouki.NETStandard
             var ifStatements = new List<ConditionalExpression>();
             foreach (var item in items)
             {
-                // if(x == item.attribute) task = instance.method<T>((T)x, TargetViewType);
-                // if(x == item.attribute) task = instance.method((T)x);
+                // if(x == item.request) task = instance.method<T>((T)x, TargetViewType);
+                // if(x == item.request) task = instance.method((T)x);
                 BinaryExpression test = Expression.Equal(navigationRequest, Expression.Constant(item.request));
                 Type typeArgument = GetTypeArgument(item.request);
                 Type[] typeArguments = item.method.IsGenericMethod ? new[] { typeArgument } : new Type[0];
