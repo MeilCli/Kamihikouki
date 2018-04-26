@@ -14,7 +14,7 @@ namespace Kamihikouki.NETStandard
         public Task RaiseAsync()
         {
             INavigationAction navigationAction = _navigationAction ?? throw new InvalidOperationException("NavigationAction is null");
-            return navigationAction.NavigateAsync<object>();
+            return navigationAction.NavigateAsync<object>(this);
         }
     }
 
@@ -34,7 +34,7 @@ namespace Kamihikouki.NETStandard
         public Task RaiseAsync(TParam parameter)
         {
             INavigationAction navigationAction = _navigationAction ?? throw new InvalidOperationException("NavigationAction is null");
-            return navigationAction.NavigateAsync(parameter);
+            return navigationAction.NavigateAsync(this, parameter);
         }
     }
 }

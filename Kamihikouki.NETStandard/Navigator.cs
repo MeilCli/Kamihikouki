@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -19,30 +20,61 @@ namespace Kamihikouki.NETStandard
 
         public CachedNavigator(INavigationProvider navigationProvider) : base(navigationProvider) { }
 
-        private protected override Func<object, Task> CreateDelegate(
-            MethodInfo methodInfo, INavigationAttribute navigationAttribute, object instance)
+        private protected override Func<object, INavigationRequest, Task> CreateDelegate(
+            (MethodInfo method, INavigationAttribute attribute, INavigationRequest request)[] items,
+            object instance)
+        {
+            // object x, INavigationRequest navigationRequest => {}
+            ParameterExpression x = Expression.Parameter(typeof(object), "x");
+            ParameterExpression navigationRequest = Expression.Parameter(typeof(INavigationRequest), "navigationRequest");
+            // Task task;
+            ParameterExpression task = Expression.Variable(typeof(Task), "task");
+
+            // task = Task.CompletedTask;
+            BinaryExpression taskAssignDefault = Expression.Assign(task, Expression.Constant(Task.CompletedTask));
+
+            var ifStatements = new List<ConditionalExpression>();
+            foreach (var item in items)
+            {
+                // if(x == item.attribute) task = instance.method<T>((T)x, TargetViewType);
+                // if(x == item.attribute) task = instance.method((T)x);
+                BinaryExpression test = Expression.Equal(navigationRequest, Expression.Constant(item.request));
+                Type typeArgument = GetTypeArgument(item.request);
+                Type[] typeArguments = item.method.IsGenericMethod ? new[] { typeArgument } : new Type[0];
+                UnaryExpression castedX = Expression.Convert(x, typeArgument);
+                Expression[] methodArguments = getMethodArguments(castedX, item.attribute);
+                MethodCallExpression method = Expression.Call(Expression.Constant(instance), item.method.Name, typeArguments, methodArguments);
+                BinaryExpression taskAssignResult = Expression.Assign(task, method);
+                ConditionalExpression ifStatement = Expression.IfThen(test, taskAssignResult);
+                ifStatements.Add(ifStatement);
+            }
+
+            var statements = new List<Expression>();
+            // task = Task.CompletedTask;
+            statements.Add(taskAssignDefault);
+            // ~~ statements ~~ 
+            statements.AddRange(ifStatements);
+            // return Task task;
+            statements.Add(task);
+            BlockExpression block = Expression.Block(typeof(Task), new[] { task }, statements);
+            var lamda = Expression.Lambda<Func<object, INavigationRequest, Task>>(block, x, navigationRequest);
+
+            return lamda.Compile();
+        }
+
+        /// <summary>
+        /// メソッドの引数の配列を返却する
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="navigationAttribute"></param>
+        /// <returns></returns>
+        private Expression[] getMethodArguments(UnaryExpression x, INavigationAttribute navigationAttribute)
         {
             if (navigationAttribute is ITargetableNavigationAttribute targetableNavigationAttribute)
             {
-                // var targetViewType = targetableNavigationAttribute.TargetViewType;
-                // x => (Task)instance.method((T)x,Type targetViewType);
-                ParameterExpression x = Expression.Parameter(typeof(object), "x");
-                Expression castedX = Expression.Convert(x, methodInfo.GetParameters()[0].ParameterType);
-                ConstantExpression targetViewType = Expression.Constant(targetableNavigationAttribute.TargetViewType);
-                MethodCallExpression method = Expression.Call(Expression.Constant(instance), methodInfo, castedX, targetViewType);
-                Expression castedMethod = Expression.Convert(method, typeof(Task));
-                var lambda = Expression.Lambda<Func<object, Task>>(castedMethod, x);
-                return lambda.Compile();
+                return new Expression[] { x, Expression.Constant(targetableNavigationAttribute.TargetViewType) };
             }
-            {
-                // x => (Task)instance.method((T)x);
-                ParameterExpression x = Expression.Parameter(typeof(object), "x");
-                Expression castedX = Expression.Convert(x, methodInfo.GetParameters()[0].ParameterType);
-                MethodCallExpression method = Expression.Call(Expression.Constant(instance), methodInfo, castedX);
-                Expression castedMethod = Expression.Convert(method, typeof(Task));
-                var lambda = Expression.Lambda<Func<object, Task>>(castedMethod, x);
-                return lambda.Compile();
-            }
+            return new[] { x };
         }
     }
 
@@ -82,6 +114,8 @@ namespace Kamihikouki.NETStandard
                 // 型パラメーターは1つかどうか
                 .Where(x => x.method.IsGenericMethod && x.method.IsGenericMethodDefinition && x.method.GetGenericArguments().Length == 1)
                 .ToList();
+
+            var items = new List<(MethodInfo, INavigationAttribute, INavigationRequest)>();
             foreach (var navigationAttribute in navigationAttributes)
             {
                 var navigationProviderMethod = navigationProviderMethods
@@ -99,12 +133,18 @@ namespace Kamihikouki.NETStandard
 
                 object viewModel = getViewModel(navigationAttribute, viewModels);
                 INavigationRequest navigationRequest = getNavigationRequest(navigationAttribute, viewModel);
-                Type typeArgument = getTypeArgument(navigationRequest);
-
+                Type typeArgument = GetTypeArgument(navigationRequest);
                 MethodInfo method = navigationProviderMethod.method.MakeGenericMethod(typeArgument);
-                Func<object, Task> func = CreateDelegate(method, navigationAttribute, NavigationProvider);
-                var navigationAction = new NavigationAction(func);
-                navigationRequest.NavigationAction = navigationAction;
+
+                items.Add((method, navigationAttribute, navigationRequest));
+            }
+
+            var func = CreateDelegate(items.ToArray(), NavigationProvider);
+            var navigationAction = new NavigationAction(func);
+
+            foreach (var item in items)
+            {
+                item.Item3.NavigationAction = navigationAction;
             }
         }
 
@@ -120,16 +160,25 @@ namespace Kamihikouki.NETStandard
                 // 引数が1つかどうか
                 .Where(x => x.method.GetParameters().Length == 1)
                 .ToList();
+
+            var items = new List<(MethodInfo, INavigationAttribute, INavigationRequest)>();
             foreach (var navigationMethod in navigationMethods)
             {
                 foreach (var attribute in navigationMethod.attributes)
                 {
-                    Func<object, Task> func = CreateDelegate(navigationMethod.method, attribute, view);
-                    var navigationAction = new NavigationAction(func);
                     object viewModel = getViewModel(attribute, viewModels);
                     INavigationRequest navigationRequest = getNavigationRequest(attribute, viewModel);
-                    navigationRequest.NavigationAction = navigationAction;
+
+                    items.Add((navigationMethod.method, attribute, navigationRequest));
                 }
+            }
+
+            var func = CreateDelegate(items.ToArray(), view);
+            var navigationAction = new NavigationAction(func);
+
+            foreach (var item in items)
+            {
+                item.Item3.NavigationAction = navigationAction;
             }
         }
 
@@ -165,7 +214,7 @@ namespace Kamihikouki.NETStandard
                 ?? throw new InvalidOperationException($"property value is not {nameof(INavigationRequest)}");
         }
 
-        private Type getTypeArgument(INavigationRequest navigationRequest)
+        private protected Type GetTypeArgument(INavigationRequest navigationRequest)
         {
             var genericInterfaceTypes = navigationRequest.GetType()
                 .GetTypeInfo()
@@ -189,13 +238,21 @@ namespace Kamihikouki.NETStandard
         /// <param name="navigationAttribute"></param>
         /// <param name="instance">デリゲートとする実際のメソッドが定義されているオブジェクトのインスタンス</param>
         /// <returns></returns>
-        private protected virtual Func<object, Task> CreateDelegate(MethodInfo methodInfo, INavigationAttribute navigationAttribute, object instance)
+        private protected virtual Func<object, INavigationRequest, Task> CreateDelegate(
+            (MethodInfo method, INavigationAttribute attribute, INavigationRequest request)[] items, object instance)
         {
-            if (navigationAttribute is ITargetableNavigationAttribute targetableNavigationAttribute)
+            return (x, request) =>
             {
-                return x => (Task)methodInfo.Invoke(instance, new[] { x, targetableNavigationAttribute.TargetViewType });
-            }
-            return x => (Task)methodInfo.Invoke(instance, new[] { x });
+                var item = items.FirstOrDefault(y => y.request == request);
+                // item == nullのチェックをしたいが、ValueTupleに==演算子が定義されていない
+
+                if (item.attribute is ITargetableNavigationAttribute targetableNavigationAttribute)
+                {
+                    return (Task)item.method.Invoke(instance, new[] { x, targetableNavigationAttribute.TargetViewType });
+                }
+                return (Task)item.method.Invoke(instance, new[] { x });
+            };
+
         }
     }
 }

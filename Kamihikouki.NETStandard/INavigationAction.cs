@@ -4,6 +4,6 @@ namespace Kamihikouki.NETStandard
 {
     public interface INavigationAction
     {
-        Task NavigateAsync<TParam>(TParam parameter = default);
+        Task NavigateAsync<TParam>(INavigationRequest navigationRequest, TParam parameter = default);
     }
 }

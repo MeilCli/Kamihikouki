@@ -26,7 +26,8 @@ namespace Kamihikouki.Sample.Console
             var viewModel = new ViewModel();
             // 各プラットフォームで実装する必要がある
             var navigationProvider = new NavigationProvider();
-            Navigator.Inject(navigationProvider, this, viewModel);
+            CachedNavigator.Inject(navigationProvider, this, viewModel);
+            // Navigator.Inject(navigationProvider, this, viewModel);
             viewModel.Paging();
         }
 

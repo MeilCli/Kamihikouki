@@ -8,16 +8,16 @@ namespace Kamihikouki.NETStandard
     class NavigationAction : INavigationAction
     {
 
-        private Func<object, Task> func;
+        private Func<object, INavigationRequest, Task> func;
 
-        public NavigationAction(Func<object, Task> func)
+        public NavigationAction(Func<object, INavigationRequest, Task> func)
         {
             this.func = func;
         }
 
-        public Task NavigateAsync<TParam>(TParam parameter = default)
+        public Task NavigateAsync<TParam>(INavigationRequest navigationRequest, TParam parameter = default)
         {
-            return func(parameter);
+            return func(parameter, navigationRequest);
         }
     }
 }
