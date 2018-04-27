@@ -20,6 +20,12 @@ namespace Kamihikouki.NETStandard
 
         public CachedNavigator(INavigationProvider navigationProvider) : base(navigationProvider) { }
 
+        /// <summary>
+        /// NavigationActionへ渡すためのデリゲートを作成
+        /// </summary>
+        /// <param name="items">デリゲートとするメソッド群に関する情報</param>
+        /// <param name="instance">デリゲートとする実際のメソッド群が定義されているオブジェクトのインスタンス</param>
+        /// <returns></returns>
         private protected override Func<object, INavigationRequest, Task> CreateDelegate(
             (MethodInfo method, INavigationAttribute attribute, INavigationRequest request)[] items,
             object instance)
@@ -234,9 +240,8 @@ namespace Kamihikouki.NETStandard
         /// <summary>
         /// NavigationActionへ渡すためのデリゲートを作成
         /// </summary>
-        /// <param name="methodInfo">デリゲートとする実際のメソッドの情報</param>
-        /// <param name="navigationAttribute"></param>
-        /// <param name="instance">デリゲートとする実際のメソッドが定義されているオブジェクトのインスタンス</param>
+        /// <param name="items">デリゲートとするメソッド群に関する情報</param>
+        /// <param name="instance">デリゲートとする実際のメソッド群が定義されているオブジェクトのインスタンス</param>
         /// <returns></returns>
         private protected virtual Func<object, INavigationRequest, Task> CreateDelegate(
             (MethodInfo method, INavigationAttribute attribute, INavigationRequest request)[] items, object instance)
