@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{604CCB33-02E9-4BA2-9591-B27DBC01C50D}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE.txt = LICENSE.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamihikouki.Benchmark.Core", "Kamihikouki.Benchmark.Core\Kamihikouki.Benchmark.Core.csproj", "{2E012790-6EFD-43B5-9A7B-2DFED2312CAF}"
