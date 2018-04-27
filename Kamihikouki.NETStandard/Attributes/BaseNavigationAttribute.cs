@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kamihikouki.NETStandard
+namespace Kamihikouki.NETStandard.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
     public abstract class BaseNavigationAttribute : Attribute, INavigationAttribute

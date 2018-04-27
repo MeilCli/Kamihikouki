@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kamihikouki.NETStandard.Navigation
+namespace Kamihikouki.NETStandard.Attributes
 {
     public class PushNavigationAttribute : BaseNavigationAttribute, ITargetableNavigationAttribute
     {

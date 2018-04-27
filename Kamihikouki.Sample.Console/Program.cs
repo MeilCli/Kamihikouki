@@ -1,5 +1,5 @@
 ﻿using Kamihikouki.NETStandard;
-using Kamihikouki.NETStandard.Navigation;
+using Kamihikouki.NETStandard.Attributes;
 using System;
 using System.Threading.Tasks;
 using static System.Console;

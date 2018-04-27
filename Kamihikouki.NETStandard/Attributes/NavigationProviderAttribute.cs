@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kamihikouki.NETStandard
+namespace Kamihikouki.NETStandard.Attributes
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class NavigationProviderAttribute : Attribute

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kamihikouki.NETStandard
+namespace Kamihikouki.NETStandard.Attributes
 {
     interface ITargetableNavigationAttribute : INavigationAttribute
     {

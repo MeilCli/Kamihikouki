@@ -1,4 +1,4 @@
-﻿using Kamihikouki.NETStandard.Navigation;
+﻿using Kamihikouki.NETStandard.Attributes;
 using System;
 using System.Threading.Tasks;
 
