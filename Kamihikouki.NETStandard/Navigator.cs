@@ -41,7 +41,9 @@ namespace Kamihikouki.NETStandard
             BinaryExpression taskAssignDefault = Expression.Assign(task, Expression.Constant(Task.CompletedTask));
 
             ConstantExpression instanceExpression = Expression.Constant(instance);
-            var ifStatements = new ConditionalExpression[items.Length];
+            // ifstatements + taskAssingDefalt + return task
+            var statements = new Expression[items.Length + 2];
+            statements[0] = taskAssignDefault;
             for (int i = 0; i < items.Length; i++)
             {
                 var item = items[i];
@@ -55,16 +57,12 @@ namespace Kamihikouki.NETStandard
                 MethodCallExpression method = Expression.Call(instanceExpression, item.method.Name, typeArguments, methodArguments);
                 BinaryExpression taskAssignResult = Expression.Assign(task, method);
                 ConditionalExpression ifStatement = Expression.IfThen(test, taskAssignResult);
-                ifStatements[i] = ifStatement;
+                // i + ""1"" is offset for taskAssginDefault
+                statements[i + 1] = ifStatement;
             }
-
-            var statements = new Expression[ifStatements.Length + 2];
-            // task = Task.CompletedTask;
-            statements[0] = taskAssignDefault;
-            // ~~ statements ~~ 
-            Array.Copy(ifStatements, 0, statements, 1, ifStatements.Length);
             // return Task task;
             statements[statements.Length - 1] = task;
+
             BlockExpression block = Expression.Block(typeof(Task), new[] { task }, statements);
             var lamda = Expression.Lambda<Func<object, INavigationRequest, Task>>(block, x, navigationRequest);
 
