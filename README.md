@@ -23,10 +23,10 @@ Job=Core  Runtime=Core
 ```
 |           Method |          Mean |         Error |        StdDev |           Min |           Max |  Gen 0 |  Gen 1 | Allocated |
 |----------------- |--------------:|--------------:|--------------:|--------------:|--------------:|-------:|-------:|----------:|
-|     CachedInject | 482,894.91 ns | 3,927.6383 ns | 3,673.9149 ns | 476,375.23 ns | 489,216.35 ns | 3.4180 | 1.4648 |   14703 B |
-| ReflectionInject |  36,393.87 ns |   244.1481 ns |   228.3763 ns |  36,107.17 ns |  36,890.00 ns | 1.4038 |      - |    5898 B |
-|      CachedRaise |      20.70 ns |     0.2311 ns |     0.2048 ns |      20.44 ns |      21.17 ns |      - |      - |       0 B |
-|  ReflectionRaise |     318.24 ns |     3.0373 ns |     2.6925 ns |     314.47 ns |     325.09 ns | 0.0434 |      - |     184 B |
+|     CachedInject | 496,597.09 ns | 5,409.5617 ns | 5,060.1069 ns | 487,335.17 ns | 506,934.37 ns | 2.9297 | 0.9766 |   14039 B |
+| ReflectionInject |  37,487.55 ns |   450.5291 ns |   399.3823 ns |  36,748.56 ns |  38,106.65 ns | 1.3428 |      - |    5690 B |
+|      CachedRaise |      22.50 ns |     0.1602 ns |     0.1498 ns |      22.24 ns |      22.83 ns |      - |      - |       0 B |
+|  ReflectionRaise |     304.07 ns |     1.9303 ns |     1.8056 ns |     301.28 ns |     306.93 ns | 0.0148 |      - |      64 B |
 
 
 CachedNavigator is high cost when Inject().  
@@ -46,8 +46,8 @@ Job=Core  Runtime=Core
 ```
 |          Method |     Mean |     Error |    StdDev |      Min |      Max |  Gen 0 | Allocated |
 |---------------- |---------:|----------:|----------:|---------:|---------:|-------:|----------:|
-|  PropertyCount5 | 54.62 us | 0.4447 us | 0.4160 us | 53.99 us | 55.29 us | 2.8076 |  11.73 KB |
-| PropertyCount10 | 75.86 us | 0.6667 us | 0.6236 us | 74.83 us | 76.89 us | 4.6387 |  19.37 KB |
+|  PropertyCount5 | 56.71 us | 0.5632 us | 0.4993 us | 55.81 us | 57.39 us | 2.6245 |  10.93 KB |
+| PropertyCount10 | 76.75 us | 0.5432 us | 0.5081 us | 75.86 us | 77.99 us | 4.2725 |  17.83 KB |
 
 
 More properties is higher cost when Inject().  
