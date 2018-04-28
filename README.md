@@ -21,12 +21,12 @@ Frequency=3328122 Hz, Resolution=300.4698 ns, Timer=TSC
 Job=Core  Runtime=Core  
 
 ```
-|           Method |          Mean |         Error |         StdDev |           Min |           Max |  Gen 0 |  Gen 1 | Allocated |
-|----------------- |--------------:|--------------:|---------------:|--------------:|--------------:|-------:|-------:|----------:|
-|     CachedInject | 504,195.05 ns | 9,579.2652 ns | 11,403.4339 ns | 482,220.59 ns | 532,506.14 ns | 3.4180 | 1.4648 |   14887 B |
-| ReflectionInject |  35,509.79 ns |   197.6164 ns |    175.1817 ns |  35,242.78 ns |  35,835.17 ns | 1.4038 |      - |    5898 B |
-|      CachedRaise |      20.70 ns |     0.4236 ns |      0.3962 ns |      19.99 ns |      21.19 ns |      - |      - |       0 B |
-|  ReflectionRaise |     316.65 ns |     2.6040 ns |      2.4358 ns |     314.06 ns |     321.28 ns | 0.0434 |      - |     184 B |
+|           Method |          Mean |         Error |       StdDev |        Median |           Min |           Max |  Gen 0 |  Gen 1 | Allocated |
+|----------------- |--------------:|--------------:|-------------:|--------------:|--------------:|--------------:|-------:|-------:|----------:|
+|     CachedInject | 485,493.59 ns | 5,156.1627 ns | 4,823.077 ns | 483,618.51 ns | 480,195.23 ns | 496,770.81 ns | 3.4180 | 1.4648 |   14735 B |
+| ReflectionInject |  37,939.04 ns |   847.3127 ns | 1,131.138 ns |  37,690.52 ns |  36,556.66 ns |  41,141.38 ns | 1.4038 |      - |    5898 B |
+|      CachedRaise |      20.84 ns |     0.4647 ns |     1.166 ns |      20.27 ns |      19.74 ns |      24.13 ns |      - |      - |       0 B |
+|  ReflectionRaise |     322.27 ns |     1.1778 ns |     1.102 ns |     322.38 ns |     320.47 ns |     324.28 ns | 0.0434 |      - |     184 B |
 
 
 CachedNavigator is high cost when Inject().  
@@ -46,8 +46,8 @@ Job=Core  Runtime=Core
 ```
 |          Method |     Mean |     Error |    StdDev |      Min |      Max |  Gen 0 | Allocated |
 |---------------- |---------:|----------:|----------:|---------:|---------:|-------:|----------:|
-|  PropertyCount5 | 55.28 us | 1.1038 us | 1.7185 us | 53.16 us | 60.27 us | 2.8076 |  11.73 KB |
-| PropertyCount10 | 74.67 us | 0.4624 us | 0.3861 us | 74.10 us | 75.32 us | 4.6387 |  19.37 KB |
+|  PropertyCount5 | 54.78 us | 0.2296 us | 0.2148 us | 54.39 us | 55.25 us | 2.8076 |  11.73 KB |
+| PropertyCount10 | 77.72 us | 0.6371 us | 0.5648 us | 76.62 us | 78.92 us | 4.6387 |  19.37 KB |
 
 
 More properties is higher cost when Inject().  
