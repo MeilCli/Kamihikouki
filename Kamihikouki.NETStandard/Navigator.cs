@@ -40,6 +40,7 @@ namespace Kamihikouki.NETStandard
             // task = Task.CompletedTask;
             BinaryExpression taskAssignDefault = Expression.Assign(task, Expression.Constant(Task.CompletedTask));
 
+            ConstantExpression instanceExpression = Expression.Constant(instance);
             var ifStatements = new ConditionalExpression[items.Length];
             for (int i = 0; i < items.Length; i++)
             {
@@ -51,7 +52,7 @@ namespace Kamihikouki.NETStandard
                 Type[] typeArguments = item.method.IsGenericMethod ? new[] { typeArgument } : new Type[0];
                 UnaryExpression castedX = Expression.Convert(x, typeArgument);
                 Expression[] methodArguments = getMethodArguments(castedX, item.attribute);
-                MethodCallExpression method = Expression.Call(Expression.Constant(instance), item.method.Name, typeArguments, methodArguments);
+                MethodCallExpression method = Expression.Call(instanceExpression, item.method.Name, typeArguments, methodArguments);
                 BinaryExpression taskAssignResult = Expression.Assign(task, method);
                 ConditionalExpression ifStatement = Expression.IfThen(test, taskAssignResult);
                 ifStatements[i] = ifStatement;
