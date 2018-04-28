@@ -21,12 +21,12 @@ Frequency=3328122 Hz, Resolution=300.4698 ns, Timer=TSC
 Job=Core  Runtime=Core  
 
 ```
-|           Method |           Mean |          Error |         StdDev |
-|----------------- |---------------:|---------------:|---------------:|
-|     CachedInject | 4,956,815.8 ns | 62,696.2799 ns | 58,646.1334 ns |
-| ReflectionInject |   371,863.5 ns |  3,408.8187 ns |  3,021.8287 ns |
-|      CachedRaise |       220.5 ns |      0.6935 ns |      0.5791 ns |
-|  ReflectionRaise |     3,345.0 ns |     33.6479 ns |     31.4743 ns |
+|           Method |          Mean |         Error |         StdDev |           Min |           Max |  Gen 0 |  Gen 1 | Allocated |
+|----------------- |--------------:|--------------:|---------------:|--------------:|--------------:|-------:|-------:|----------:|
+|     CachedInject | 504,195.05 ns | 9,579.2652 ns | 11,403.4339 ns | 482,220.59 ns | 532,506.14 ns | 3.4180 | 1.4648 |   14887 B |
+| ReflectionInject |  35,509.79 ns |   197.6164 ns |    175.1817 ns |  35,242.78 ns |  35,835.17 ns | 1.4038 |      - |    5898 B |
+|      CachedRaise |      20.70 ns |     0.4236 ns |      0.3962 ns |      19.99 ns |      21.19 ns |      - |      - |       0 B |
+|  ReflectionRaise |     316.65 ns |     2.6040 ns |      2.4358 ns |     314.06 ns |     321.28 ns | 0.0434 |      - |     184 B |
 
 
 CachedNavigator is high cost when Inject().  
@@ -44,10 +44,11 @@ Frequency=3328122 Hz, Resolution=300.4698 ns, Timer=TSC
 Job=Core  Runtime=Core  
 
 ```
-|          Method |     Mean |    Error |   StdDev |
-|---------------- |---------:|---------:|---------:|
-|  PropertyCount5 | 564.9 us | 4.392 us | 4.109 us |
-| PropertyCount10 | 791.5 us | 3.511 us | 3.284 us |
+|          Method |     Mean |     Error |    StdDev |      Min |      Max |  Gen 0 | Allocated |
+|---------------- |---------:|----------:|----------:|---------:|---------:|-------:|----------:|
+|  PropertyCount5 | 55.28 us | 1.1038 us | 1.7185 us | 53.16 us | 60.27 us | 2.8076 |  11.73 KB |
+| PropertyCount10 | 74.67 us | 0.4624 us | 0.3861 us | 74.10 us | 75.32 us | 4.6387 |  19.37 KB |
+
 
 More properties is higher cost when Inject().  
 But, it is acceptable error range.

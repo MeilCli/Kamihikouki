@@ -1,4 +1,6 @@
-﻿using BenchmarkDotNet.Attributes.Jobs;
+﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Attributes.Columns;
+using BenchmarkDotNet.Attributes.Jobs;
 using Kamihikouki.NETStandard;
 using Kamihikouki.NETStandard.Attributes;
 
@@ -8,6 +10,8 @@ namespace Kamihikouki.Benchmark.Core
 {
 
     [CoreJob]
+    [MeanColumn, MinColumn, MaxColumn]
+    [MemoryDiagnoser]
     public class PropertyCount
     {
         private NavigationProvider navigationProvider = NavigationProvider.Instance;
@@ -17,19 +21,13 @@ namespace Kamihikouki.Benchmark.Core
         [BBehchmark]
         public void PropertyCount5()
         {
-            for (int i = 0; i < 10; i++)
-            {
-                view5.Inject(navigationProvider);
-            }
+            view5.Inject(navigationProvider);
         }
 
         [BBehchmark]
         public void PropertyCount10()
         {
-            for (int i = 0; i < 10; i++)
-            {
-                view10.Inject(navigationProvider);
-            }
+            view10.Inject(navigationProvider);
         }
     }
 

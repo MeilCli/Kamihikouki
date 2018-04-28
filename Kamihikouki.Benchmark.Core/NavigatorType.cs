@@ -1,4 +1,6 @@
-﻿using BenchmarkDotNet.Attributes.Jobs;
+﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Attributes.Columns;
+using BenchmarkDotNet.Attributes.Jobs;
 using Kamihikouki.NETStandard;
 using Kamihikouki.NETStandard.Attributes;
 using BBehchmark = BenchmarkDotNet.Attributes.BenchmarkAttribute;
@@ -6,6 +8,8 @@ using BBehchmark = BenchmarkDotNet.Attributes.BenchmarkAttribute;
 namespace Kamihikouki.Benchmark.Core
 {
     [CoreJob]
+    [MeanColumn, MinColumn, MaxColumn]
+    [MemoryDiagnoser]
     public class NavigatorType
     {
         private NavigationProvider navigationProvider = NavigationProvider.Instance;
@@ -22,37 +26,25 @@ namespace Kamihikouki.Benchmark.Core
         [BBehchmark]
         public void CachedInject()
         {
-            for (int i = 0; i < 10; i++)
-            {
-                injectView.CachedInject(navigationProvider);
-            }
+            injectView.CachedInject(navigationProvider);
         }
 
         [BBehchmark]
         public void ReflectionInject()
         {
-            for (int i = 0; i < 10; i++)
-            {
-                reflectionRaiseView.ReflectionInject(navigationProvider);
-            }
+            reflectionRaiseView.ReflectionInject(navigationProvider);
         }
 
         [BBehchmark]
         public void CachedRaise()
         {
-            for (int i = 0; i < 10; i++)
-            {
-                cachedRaiseView.Raise();
-            }
+            cachedRaiseView.Raise();
         }
 
         [BBehchmark]
         public void ReflectionRaise()
         {
-            for (int i = 0; i < 10; i++)
-            {
-                reflectionRaiseView.Raise();
-            }
+            reflectionRaiseView.Raise();
         }
     }
 
