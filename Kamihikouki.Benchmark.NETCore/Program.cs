@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Running;
 using System.Reflection;
 
-namespace Kamihikouki.Benchmark.Core
+namespace Kamihikouki.Benchmark.NETCore
 {
     class Program
     {

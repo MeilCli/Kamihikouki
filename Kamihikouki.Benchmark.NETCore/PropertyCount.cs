@@ -6,7 +6,7 @@ using Kamihikouki.NETStandard.Attributes;
 
 using BBehchmark = BenchmarkDotNet.Attributes.BenchmarkAttribute;
 
-namespace Kamihikouki.Benchmark.Core
+namespace Kamihikouki.Benchmark.NETCore
 {
 
     [CoreJob]

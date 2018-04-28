@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Kamihikouki.Benchmark.Core
+namespace Kamihikouki.Benchmark.NETCore
 {
     class NavigationProvider : BaseNavigationProvider
     {

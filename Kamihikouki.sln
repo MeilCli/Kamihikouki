@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamihikouki.Benchmark.Core", "Kamihikouki.Benchmark.Core\Kamihikouki.Benchmark.Core.csproj", "{2E012790-6EFD-43B5-9A7B-2DFED2312CAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamihikouki.Benchmark.NETCore", "Kamihikouki.Benchmark.NETCore\Kamihikouki.Benchmark.NETCore.csproj", "{2E012790-6EFD-43B5-9A7B-2DFED2312CAF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamihikouki.Benchmark.NETFramework.Profiler", "Kamihikouki.Benchmark.NETFramework.Profiler\Kamihikouki.Benchmark.NETFramework.Profiler.csproj", "{9CEFBCCD-852A-436F-BD75-DBB8D2AA8FEB}"
 EndProject
