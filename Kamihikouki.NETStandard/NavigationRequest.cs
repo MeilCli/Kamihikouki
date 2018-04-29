@@ -5,26 +5,18 @@ namespace Kamihikouki.NETStandard
 {
     public class NavigationRequest : INavigationRequest
     {
-        private INavigationAction _navigationAction;
-
-        public INavigationAction NavigationAction {
-            set => _navigationAction = value;
-        }
+        public INavigationAction NavigationAction { private get; set; }
 
         public Task RaiseAsync()
         {
-            INavigationAction navigationAction = _navigationAction ?? throw new InvalidOperationException("NavigationAction is null");
+            INavigationAction navigationAction = NavigationAction ?? throw new InvalidOperationException("NavigationAction is null");
             return navigationAction.NavigateAsync<object>(this);
         }
     }
 
     public class NavigationRequest<TParam> : INavigationRequest<TParam>
     {
-        private INavigationAction _navigationAction;
-
-        public INavigationAction NavigationAction {
-            set => _navigationAction = value;
-        }
+        public INavigationAction NavigationAction { private get; set; }
 
         Task INavigationRequest.RaiseAsync()
         {
@@ -33,7 +25,7 @@ namespace Kamihikouki.NETStandard
 
         public Task RaiseAsync(TParam parameter)
         {
-            INavigationAction navigationAction = _navigationAction ?? throw new InvalidOperationException("NavigationAction is null");
+            INavigationAction navigationAction = NavigationAction ?? throw new InvalidOperationException("NavigationAction is null");
             return navigationAction.NavigateAsync(this, parameter);
         }
     }
