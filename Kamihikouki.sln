@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamihikouki.Benchmark.NETCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamihikouki.Benchmark.NETFramework.Profiler", "Kamihikouki.Benchmark.NETFramework.Profiler\Kamihikouki.Benchmark.NETFramework.Profiler.csproj", "{9CEFBCCD-852A-436F-BD75-DBB8D2AA8FEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamihikouki.Platform.Android", "Kamihikouki.Platform.Android\Kamihikouki.Platform.Android.csproj", "{748D33AB-A659-43FB-A889-288284EC5BBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{9CEFBCCD-852A-436F-BD75-DBB8D2AA8FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CEFBCCD-852A-436F-BD75-DBB8D2AA8FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CEFBCCD-852A-436F-BD75-DBB8D2AA8FEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{748D33AB-A659-43FB-A889-288284EC5BBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{748D33AB-A659-43FB-A889-288284EC5BBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{748D33AB-A659-43FB-A889-288284EC5BBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{748D33AB-A659-43FB-A889-288284EC5BBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
