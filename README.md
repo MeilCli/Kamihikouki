@@ -1,6 +1,6 @@
 # Kamihikouhi
 An ideal MVVM Navigator - Kamihikouki  
-Inspired by [KAMISHOBAI for Xamarin.Forms](https://github.com/nuitsjp/KAMISHIBAI)
+Inspired by [KAMISHIBAI for Xamarin.Forms](https://github.com/nuitsjp/KAMISHIBAI)
 
 **Be still making this, now!**  
 Please give time for this job.
