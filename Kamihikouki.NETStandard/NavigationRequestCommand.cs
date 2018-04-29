@@ -180,4 +180,17 @@ namespace Kamihikouki.NETStandard
             }
         }
     }
+
+    public static class NavigationRequestCommandExtension
+    {
+        public static NavigationRequestCommand ToNavigationRequestCommand(this IObservable<bool> canExecuteSource, bool initialCanExcute = true)
+        {
+            return new NavigationRequestCommand(canExecuteSource, initialCanExcute);
+        }
+
+        public static NavigationRequestCommand<T> ToNavigationRequestCommand<T>(this IObservable<bool> canExecuteSource, bool initialCanExcute = true)
+        {
+            return new NavigationRequestCommand<T>(canExecuteSource, initialCanExcute);
+        }
+    }
 }
