@@ -66,6 +66,9 @@ namespace Kamihikouki.Platform.Android
                 case IList<IParcelable> p:
                     intent.PutParcelableArrayListExtra(argumentKey, p);
                     break;
+                case IStateSerializable p:
+                    intent.PutExtra(argumentKey, p.StateSerialize());
+                    break;
                 case bool p:
                     intent.PutExtra(argumentKey, p);
                     break;

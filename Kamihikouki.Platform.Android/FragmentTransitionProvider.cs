@@ -77,6 +77,9 @@ namespace Kamihikouki.Platform.Android
                 case IList<Integer> p:
                     bundle.PutIntegerArrayList(argumentKey, p);
                     break;
+                case IStateSerializable p:
+                    bundle.PutByteArray(argumentKey, p.StateSerialize());
+                    break;
                 case Size p:
                     bundle.PutSize(argumentKey, p);
                     break;
