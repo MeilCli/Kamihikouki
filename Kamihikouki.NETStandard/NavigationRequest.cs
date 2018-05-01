@@ -7,6 +7,11 @@ namespace Kamihikouki.NETStandard
     {
         public INavigationAction NavigationAction { private get; set; }
 
+        public bool CanExecute()
+        {
+            return NavigationAction != null;
+        }
+
         public Task RaiseAsync()
         {
             INavigationAction navigationAction = NavigationAction ?? throw new InvalidOperationException("NavigationAction is null");
@@ -17,6 +22,11 @@ namespace Kamihikouki.NETStandard
     public class NavigationRequest<TParam> : INavigationRequest<TParam>
     {
         public INavigationAction NavigationAction { private get; set; }
+
+        public bool CanExecute()
+        {
+            return NavigationAction != null;
+        }
 
         Task INavigationRequest.RaiseAsync()
         {
