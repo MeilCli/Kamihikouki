@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="ActivityTransitionProvider.cs" />
     <Compile Include="FragmentTransitionProvider.cs" />
-    <Compile Include="IStateSerializable.cs" />
     <Compile Include="ITransitionProvider.cs" />
     <Compile Include="NavigationProvider.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

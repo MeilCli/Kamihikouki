@@ -2,6 +2,7 @@
 using Android.OS;
 using Java.IO;
 using Java.Lang;
+using Kamihikouki.NETStandard;
 using System;
 using System.Collections.Generic;
 using AActivity = Android.App.Activity;

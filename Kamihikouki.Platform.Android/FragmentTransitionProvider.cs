@@ -3,6 +3,7 @@ using Android.OS;
 using Android.Util;
 using Java.IO;
 using Java.Lang;
+using Kamihikouki.NETStandard;
 using System;
 using System.Collections.Generic;
 
