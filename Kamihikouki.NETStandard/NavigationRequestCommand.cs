@@ -14,6 +14,15 @@ namespace Kamihikouki.NETStandard
         private bool canExecute;
         private bool isDisposed;
 
+        public NavigationRequestCommand(bool initialCanExcute = true)
+        {
+            if (initialCanExcute)
+            {
+                canExecute = initialCanExcute;
+                CanExecuteChanged.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public NavigationRequestCommand(IObservable<bool> canExecuteSource, bool initialCanExcute = true)
         {
             if (initialCanExcute)
@@ -26,12 +35,12 @@ namespace Kamihikouki.NETStandard
 
         bool ICommand.CanExecute(object parameter)
         {
-            return canExecute;
+            return canExecute && NavigationAction != null;
         }
 
         public bool CanExecute()
         {
-            return canExecute;
+            return canExecute && NavigationAction != null;
         }
 
         async void ICommand.Execute(object parameter)
@@ -51,7 +60,7 @@ namespace Kamihikouki.NETStandard
                 return;
             }
             isDisposed = true;
-            sourceDisposable.Dispose();
+            sourceDisposable?.Dispose();
             canExecute = false;
         }
 
@@ -100,6 +109,15 @@ namespace Kamihikouki.NETStandard
         private bool canExecute;
         private bool isDisposed;
 
+        public NavigationRequestCommand(bool initialCanExcute = true)
+        {
+            if (initialCanExcute)
+            {
+                canExecute = initialCanExcute;
+                CanExecuteChanged.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public NavigationRequestCommand(IObservable<bool> canExecuteSource, bool initialCanExcute = true)
         {
             if (initialCanExcute)
@@ -112,12 +130,12 @@ namespace Kamihikouki.NETStandard
 
         bool ICommand.CanExecute(object parameter)
         {
-            return canExecute;
+            return canExecute && NavigationAction != null;
         }
 
         public bool CanExecute()
         {
-            return canExecute;
+            return canExecute && NavigationAction != null;
         }
 
         async void ICommand.Execute(object parameter)
@@ -137,7 +155,7 @@ namespace Kamihikouki.NETStandard
                 return;
             }
             isDisposed = true;
-            sourceDisposable.Dispose();
+            sourceDisposable?.Dispose();
             canExecute = false;
         }
 
