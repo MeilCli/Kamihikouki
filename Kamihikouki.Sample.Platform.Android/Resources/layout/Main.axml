@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <TextView
+      android:id="@+id/CountText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content" />
+  <Button
+      android:id="@+id/IncrementButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Increment Count" />
+  <Button
+      android:id="@+id/DecrementButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Decrement Count" />
+  <Button
+      android:id="@+id/StartNextViewButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Start Next View" />
+</LinearLayout>
