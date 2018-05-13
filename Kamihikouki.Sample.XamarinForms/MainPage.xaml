@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Kamihikouki.Sample.NETStandard.ViewModels;assembly=Kamihikouki.Sample.NETStandard"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true"
+             x:Class="Kamihikouki.Sample.XamarinForms.MainPage">
+    <ContentPage.BindingContext>
+        <local:CountViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <Label Text="{Binding CountText.Value}"/>
+        <Button Text="Increment Count"
+                Command="{Binding IncrementCommand}"/>
+        <Button Text="Decrement Count"
+                Command="{Binding DecrementCommand}"/>
+        <Button Text="Start Next View"
+                Command="{Binding StartNextViewCommand}"/>
+    </StackLayout>
+
+</ContentPage>
